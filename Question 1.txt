@@ -1,0 +1,17 @@
+Objects are reference types, so you can’t use your normal equality operators, i.e. == or ===. as you use for comparison of primitives.
+
+As the name suggests JSON.stringify() converts objects to strings first and comparison takes place afterward.
+
+JSON.stringify({ a: 1, b: 2}) === "{"a":1,"b":2}"
+
+JSON.stringify({ b: 2, a: 1}) === "{"b":2,"a":1}"
+For JSON. stringify() , the order matters.
+
+So if the key-value pair are ordered differently in the two objects but are the same, it will return false. Whereas it doesn’t matter in Lodash isEqual , it will return true as along as the key-value pair exists.
+
+Also, it would return false for objects that were deeply equal, but whose keys were entered in a different order:
+
+
+var obj1 = {name: "person 1", age: 5}
+var obj2 = {age: 5, name "person 1"}
+JSON. stringify(obj1) === JSON. stringify(obj2) // false
